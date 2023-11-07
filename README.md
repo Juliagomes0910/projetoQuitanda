@@ -64,7 +64,7 @@ Contribuições são bem-vindas. Sinta-se à vontade para fazer um fork do repos
 
 - [João Paulo]: Instrutor de Programação Web Back-End.
 
-- [Julia Gomes]: Aluna de D.S.
+- [Julia Gomes]: Aluna de D.S. -
 ---
 
 © [2023] Sesi Senai Itapeva
