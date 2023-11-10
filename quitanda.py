@@ -56,7 +56,24 @@ def acesso():
         session["login"] = True 
         return redirect('/adm')
     else:
-        return
-render_template("login.html", msg = "Usuário/Senha estão incorretos!")
+        return render_template("login.html", msg = "Usuário/Senha estão incorretos!")
+
+#Rota da página adm
+@app.route("/adm")
+def adm():
+    if verifica_sessao():
+        iniciar_db()
+        conexao = conecta_database()
+        produtos = conexao.execute('SELECT * FRO  produtos ORDER BY id_prod DESC').fetchall()
+        conexao.close()
+        title = "Administração"
+        return render_template("adm.html", produtos=produtos , title=title)
+    else:
+        return redirect("/login")
+
+
+
+
+
 #Final do código 
 app.run(debug=True)
