@@ -64,12 +64,122 @@ def adm():
     if verifica_sessao():
         iniciar_db()
         conexao = conecta_database()
-        produtos = conexao.execute('SELECT * FRO  produtos ORDER BY id_prod DESC').fetchall()
+        produtos = conexao.execute('SELECT * FROM  produtos ORDER BY id_prod DESC').fetchall()
         conexao.close()
         title = "Administração"
         return render_template("adm.html", produtos=produtos , title=title)
     else:
         return redirect("/login")
+
+#Rota de Logout
+@app.route("/logout")
+def logout():
+    global login
+    login = False
+    session.clear()
+    return redirect('/')
+
+#Rota para página de cadastro
+@app.route("/cadprodutos")
+def cadprodutos():
+    if verifica_sessao():
+        title = "Cadastrar de produtos"
+        return render_template("cadprodutos.html" , title=title)
+    
+    else:
+        return redirect("/login")
+
+#Rota da págian de cadastro no Banco
+@app.route("/cadastro" , methods=["post"])
+def cadastro():
+    if verifica_sessao():
+        nome_prod=request.form['nome_prod']
+        desc_prod=request.form['des_prod']
+        preco_prod=request.form['preco_prod']
+        img_prod=request.files['img_prod']
+        id_foto=str(uuid.uuid4().hex)
+        filename=id_foto+nome_prod+'.png'
+        img_prod.save("static/img/produtos/"+filename)
+        conexao = conecta_database()
+        conexao.execute('INSERT INTO produtos (nome_prod, desc_prod, preco_prod, img_prod) VALUES (?,?,?,?)',(nome_prod, desc_prod, preco_prod, filename))
+        conexao.commit()
+        conexao.close()
+        return redirect("/adm")
+    else:
+        return redirect("/login")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
