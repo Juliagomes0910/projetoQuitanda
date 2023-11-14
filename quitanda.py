@@ -94,7 +94,7 @@ def cadprodutos():
 def cadastro():
     if verifica_sessao():
         nome_prod=request.form['nome_prod']
-        desc_prod=request.form['des_prod']
+        desc_prod=request.form['desc_prod']
         preco_prod=request.form['preco_prod']
         img_prod=request.files['img_prod']
         id_foto=str(uuid.uuid4().hex)
