@@ -151,6 +151,15 @@ def editprod():
     conexao.close()
     return redirect ('/adm')
 
+#Rota da página de busca 
+@app.route("/busca",methods=["post"])
+def busca():
+    busca=request.form
+    conexao = conecta_database()
+    produtos = conexao.execute('SELECT * FROM produtos WHERE nome_prod LIKE "%" || ? || "%"', (busca,)).fetchall
+    title = "Home"
+    return render_template ("home.html", produtos=produtos, title=title)
+
 
 
 
