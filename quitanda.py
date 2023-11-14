@@ -154,7 +154,7 @@ def editprod():
 #Rota da página de busca 
 @app.route("/busca",methods=["post"])
 def busca():
-    busca=request.form
+    busca=request.form['buscar']
     conexao = conecta_database()
     produtos = conexao.execute('SELECT * FROM produtos WHERE nome_prod LIKE "%" || ? || "%"', (busca,)).fetchall
     title = "Home"
